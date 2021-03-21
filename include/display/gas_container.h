@@ -118,11 +118,11 @@ class GasContainer {
   void DetermineParticleCollisions();
 
   std::vector<Particle> particles_;
-  glm::vec2 firstCornerPoint_;
-  glm::vec2 secondCornerPoint_;
-  float particleRadius_;
-  float particleMass_;
-  ci::Color particleColor_;
+  glm::vec2 top_left_corner_;
+  glm::vec2 bottom_right_corner_;
+  float default_particle_radius_;
+  float default_particle_mass_;
+  ci::Color default_particle_color_;
   CollisionPhysics physics_;
 };
 

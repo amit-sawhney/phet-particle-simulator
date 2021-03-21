@@ -41,11 +41,11 @@ class Particle {
    * Determines whether velocity should be getting large in magnitude or not and
    * adjusts the current velocity accordingly to the delta_velocity
    * @param delta_velocity the amount to adjust the current velocity by
-   * @param shouldIncreaseSpeed determines whether velocities should get bigger
+   * @param should_increase_speed determines whether velocities should get bigger
    * or smaller with respect to magnitude
    */
   void UpdateVelocity(const glm::vec2& delta_velocity,
-                      bool shouldIncreaseSpeed);
+                      bool should_increase_speed);
 
  private:
   glm::vec2 position_;

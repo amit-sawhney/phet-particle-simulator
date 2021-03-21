@@ -12,43 +12,45 @@ CollisionPhysics::CollisionPhysics(const glm::vec2& top_left_corner,
 
 CollisionPhysics::CollisionPhysics() = default;
 
-bool CollisionPhysics::DidParticlesCollide(Particle first_particle,
-                                           Particle second_particle) const {
-  bool areTouching = glm::distance(first_particle.GetPosition(),
-                                   second_particle.GetPosition()) <=
-                     first_particle.GetRadius() + second_particle.GetRadius();
+bool CollisionPhysics::DidParticlesCollide(const Particle& particle1,
+                                           const Particle& particle2) const {
+  float particle_distances =
+      glm::distance(particle1.GetPosition(), particle2.GetPosition());
 
-  bool areMovingTowardsEachOther =
-      glm::dot(first_particle.GetVelocity() - second_particle.GetVelocity(),
-               first_particle.GetPosition() - second_particle.GetPosition()) <
-      0;
+  bool areTouching =
+      particle_distances <= particle1.GetRadius() + particle2.GetRadius();
+
+  glm::vec2 delta_velocity = particle1.GetVelocity() - particle2.GetVelocity();
+  glm::vec2 delta_position = particle1.GetPosition() - particle2.GetVelocity();
+
+  bool areMovingTowardsEachOther = glm::dot(delta_velocity, delta_position) < 0;
 
   return areTouching && areMovingTowardsEachOther;
 }
 
-void CollisionPhysics::UpdateCollidedParticleVelocities(
-    Particle& first_particle, Particle& second_particle) {
-  glm::vec2 delta_positions =
-      first_particle.GetPosition() - second_particle.GetPosition();
-  glm::vec2 delta_velocities =
-      first_particle.GetVelocity() - second_particle.GetVelocity();
+void CollisionPhysics::UpdateCollidedParticleVelocities(Particle& particle1,
+                                                        Particle& particle2) {
+  glm::vec2 delta_position = particle1.GetPosition() - particle2.GetPosition();
+  glm::vec2 delta_velocity = particle1.GetVelocity() - particle2.GetVelocity();
 
-  glm::vec2 first_new_velocity =
-      first_particle.GetVelocity() -
-      (glm::dot(delta_velocities, (delta_positions)) /
-       glm::pow(glm::length(delta_positions), 2)) *
-          delta_positions;
+  // Calculates the new velocity of particle 1 based on the collision
+  glm::vec2 new_velocity1 =
+      particle1.GetVelocity() - (glm::dot(delta_velocity, (delta_position)) /
+                                 glm::pow(glm::length(delta_position), 2)) *
+                                    delta_position;
 
-  glm::vec2 second_new_velocity =
-      second_particle.GetVelocity() -
-      glm::dot(-delta_velocities, -delta_positions) /
-          glm::pow(glm::length(-delta_positions), 2) * -delta_positions;
+  // Calculates the new velocity of particle 2 based on the collision
+  glm::vec2 new_velocity2 =
+      particle2.GetVelocity() - glm::dot(-delta_velocity, -delta_position) /
+                                    glm::pow(glm::length(-delta_position), 2) *
+                                    -delta_position;
 
-  first_particle.SetVelocity(first_new_velocity);
-  second_particle.SetVelocity(second_new_velocity);
+  particle1.SetVelocity(new_velocity1);
+  particle2.SetVelocity(new_velocity2);
 }
 
-bool CollisionPhysics::IsParticleCollidingWithTopWall(Particle particle) const {
+bool CollisionPhysics::IsParticleCollidingWithTopWall(
+    const Particle& particle) const {
   float y_pos = particle.GetPosition().y;
   float y_velocity = particle.GetVelocity().y;
   float radius = particle.GetRadius();
@@ -57,7 +59,7 @@ bool CollisionPhysics::IsParticleCollidingWithTopWall(Particle particle) const {
 }
 
 bool CollisionPhysics::IsParticleCollidingWithBottomWall(
-    Particle particle) const {
+    const Particle& particle) const {
   float y_pos = particle.GetPosition().y;
   float y_velocity = particle.GetVelocity().y;
   float radius = particle.GetRadius();
@@ -66,7 +68,7 @@ bool CollisionPhysics::IsParticleCollidingWithBottomWall(
 }
 
 bool CollisionPhysics::IsParticleCollidingWithLeftWall(
-    Particle particle) const {
+    const Particle& particle) const {
   float x_pos = particle.GetPosition().x;
   float x_velocity = particle.GetVelocity().x;
   float radius = particle.GetRadius();
@@ -75,7 +77,7 @@ bool CollisionPhysics::IsParticleCollidingWithLeftWall(
 }
 
 bool CollisionPhysics::IsParticleCollidingWithRightWall(
-    Particle particle) const {
+    const Particle& particle) const {
   float x_pos = particle.GetPosition().x;
   float x_velocity = particle.GetVelocity().x;
   float radius = particle.GetRadius();

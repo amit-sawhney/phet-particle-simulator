@@ -36,8 +36,8 @@ void Particle::SetVelocity(const glm::vec2 &new_velocity) {
 }
 
 void Particle::UpdateVelocity(const glm::vec2 &delta_velocity,
-                              bool shouldIncreaseSpeed) {
-  if (shouldIncreaseSpeed) {
+                              bool should_increase_speed) {
+  if (should_increase_speed) {
     if (velocity_.x > 0) {
       velocity_.x += delta_velocity.x;
     } else if (velocity_.x < 0) {

@@ -11,11 +11,11 @@ GasContainer::GasContainer(std::vector<Particle> initial_particles,
                            float default_particle_radius,
                            float default_particle_mass,
                            const ci::Color& default_particle_color) {
-  firstCornerPoint_ = top_left_corner;
-  secondCornerPoint_ = bottom_right_corner;
-  particleRadius_ = default_particle_radius;
-  particleMass_ = default_particle_mass;
-  particleColor_ = default_particle_color;
+  top_left_corner_ = top_left_corner;
+  bottom_right_corner_ = bottom_right_corner;
+  default_particle_radius_ = default_particle_radius;
+  default_particle_mass_ = default_particle_mass;
+  default_particle_color_ = default_particle_color;
   physics_ = CollisionPhysics(top_left_corner, bottom_right_corner);
   GasContainer::AddRandomParticles(num_rand_particles);
 
@@ -32,7 +32,7 @@ void GasContainer::Display() const {
                             current_particle.GetRadius());
   }
   ci::gl::color(ci::Color("white"));
-  ci::gl::drawStrokedRect(ci::Rectf(firstCornerPoint_, secondCornerPoint_));
+  ci::gl::drawStrokedRect(ci::Rectf(top_left_corner_, bottom_right_corner_));
 }
 
 void GasContainer::AdvanceOneFrame() {
@@ -100,10 +100,10 @@ void GasContainer::AddRandomParticles(int particle_count) {
 
 void GasContainer::AddParticleToContainer(const glm::vec2& new_position) {
   glm::vec2 new_velocity =
-      GasContainer::CalculateRandomInitialVelocity(particleRadius_);
-  ci::Color color(particleColor_);
-  Particle new_particle(new_position, new_velocity, color, particleRadius_,
-                        particleMass_);
+      GasContainer::CalculateRandomInitialVelocity(default_particle_radius_);
+  ci::Color color(default_particle_color_);
+  Particle new_particle(new_position, new_velocity, color,
+                        default_particle_radius_, default_particle_mass_);
   particles_.push_back(new_particle);
 }
 
@@ -115,9 +115,9 @@ float GasContainer::GenerateRandomNumber(float min, float max) const {
 
 glm::vec2 GasContainer::CalculateRandomInitialPosition() const {
   int x_position = int(GasContainer::GenerateRandomNumber(
-      float(firstCornerPoint_.x), float(secondCornerPoint_.y)));
+      float(top_left_corner_.x), float(bottom_right_corner_.y)));
   int y_position = int(GasContainer::GenerateRandomNumber(
-      float(firstCornerPoint_.x), float(secondCornerPoint_.y)));
+      float(top_left_corner_.x), float(bottom_right_corner_.y)));
   return glm::vec2(x_position, y_position);
 }
 
