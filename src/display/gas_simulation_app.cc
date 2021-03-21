@@ -5,13 +5,24 @@ namespace idealgas {
 IdealGasApp::IdealGasApp() {
   std::vector<Particle> initial_particles;
   glm::vec2 particle_location(200, 200);
-  glm::vec2 particle_velocity(-1, 0);
+  glm::vec2 particle_velocity(3, 0);
   ci::Color particle1_color("red");
   float radius = 3.0;
   float mass = 10.0;
   Particle particle(particle_location, particle_velocity, particle1_color,
                     radius, mass);
+
   initial_particles.push_back(particle);
+
+  glm::vec2 particle_location2(300, 200);
+  glm::vec2 particle_velocity2(-1, 0);
+  ci::Color particle1_color2("orange");
+  float radius2 = 10.0;
+  float mass2 = 50.0;
+  Particle particle2(particle_location2, particle_velocity2, particle1_color2,
+                    radius2, mass2);
+
+  initial_particles.push_back(particle2);
 
   glm::vec2 top_left_corner(100, 100);
   glm::vec2 bottom_right_corner(600, 600);
