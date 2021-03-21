@@ -21,7 +21,7 @@ bool CollisionPhysics::DidParticlesCollide(const Particle& particle1,
       particle_distances <= particle1.GetRadius() + particle2.GetRadius();
 
   glm::vec2 delta_velocity = particle1.GetVelocity() - particle2.GetVelocity();
-  glm::vec2 delta_position = particle1.GetPosition() - particle2.GetVelocity();
+  glm::vec2 delta_position = particle1.GetPosition() - particle2.GetPosition();
 
   bool areMovingTowardsEachOther = glm::dot(delta_velocity, delta_position) < 0;
 
@@ -33,17 +33,22 @@ void CollisionPhysics::UpdateCollidedParticleVelocities(Particle& particle1,
   glm::vec2 delta_position = particle1.GetPosition() - particle2.GetPosition();
   glm::vec2 delta_velocity = particle1.GetVelocity() - particle2.GetVelocity();
 
+//  float mass_sum = particle1.GetMass() + particle2.GetMass();
+//
+//  float mass_proportion1 = particle1.GetMass() / mass_sum;
+
   // Calculates the new velocity of particle 1 based on the collision
-  glm::vec2 new_velocity1 =
-      particle1.GetVelocity() - (glm::dot(delta_velocity, (delta_position)) /
-                                 glm::pow(glm::length(delta_position), 2)) *
-                                    delta_position;
+  glm::vec2 new_velocity1 = particle1.GetVelocity() -
+                            (glm::dot(delta_velocity, (delta_position)) /
+                             glm::pow(glm::length(delta_position), 2)) *
+                            delta_position;
+
+//  float mass_proportion2 = particle2.GetMass() / mass_sum;
 
   // Calculates the new velocity of particle 2 based on the collision
   glm::vec2 new_velocity2 =
       particle2.GetVelocity() - glm::dot(-delta_velocity, -delta_position) /
-                                    glm::pow(glm::length(-delta_position), 2) *
-                                    -delta_position;
+                                glm::pow(glm::length(-delta_position), 2) * -delta_position;
 
   particle1.SetVelocity(new_velocity1);
   particle2.SetVelocity(new_velocity2);

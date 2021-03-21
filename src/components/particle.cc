@@ -27,6 +27,10 @@ float Particle::GetRadius() const {
   return radius_;
 }
 
+float Particle::GetMass() const {
+  return mass_;
+}
+
 void Particle::UpdatePosition() {
   position_ += velocity_;
 }

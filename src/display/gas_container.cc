@@ -51,9 +51,9 @@ std::vector<Particle> GasContainer::GetParticles() {
 }
 
 void GasContainer::ModifyParticlesSpeed(const glm::vec2& delta_velocity,
-                                        bool shouldIncreaseSpeed) {
+                                        bool should_increase_speed) {
   for (Particle& current_particle : particles_) {
-    current_particle.UpdateVelocity(delta_velocity, shouldIncreaseSpeed);
+    current_particle.UpdateVelocity(delta_velocity, should_increase_speed);
   }
 }
 

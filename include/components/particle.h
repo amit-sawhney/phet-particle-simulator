@@ -29,6 +29,8 @@ class Particle {
 
   float GetRadius() const;
 
+  float GetMass() const;
+
   void SetVelocity(const glm::vec2& new_velocity);
 
   /**
