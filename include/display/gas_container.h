@@ -56,11 +56,17 @@ class GasContainer {
    * Updates the velocity of all of the particles according to a global
    * velocity change
    * @param delta_velocity the amount to change all of the velocities by
-   * @param should_increase_speed whether or not the velocities should increase or
-   * decrease in magnitude
+   * @param should_increase_speed whether or not the velocities should increase
+   * or decrease in magnitude
    */
   void ModifyParticlesSpeed(const glm::vec2& delta_velocity,
                             bool should_increase_speed);
+
+  /**
+   * Adds a specific particle configuration to the container
+   * @param particle the particle configuration to add to the container
+   */
+  void AddParticleToContainer(const Particle& particle);
 
   std::vector<Particle> GetParticles();
 

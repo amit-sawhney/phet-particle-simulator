@@ -31,6 +31,10 @@ float Particle::GetMass() const {
   return mass_;
 }
 
+float Particle::GetSpeed() const {
+  return std::sqrt(std::pow(velocity_.x, 2) + std::pow(velocity_.y, 2));
+}
+
 void Particle::UpdatePosition() {
   position_ += velocity_;
 }

@@ -107,6 +107,10 @@ void GasContainer::AddParticleToContainer(const glm::vec2& new_position) {
   particles_.push_back(new_particle);
 }
 
+void GasContainer::AddParticleToContainer(const Particle& particle) {
+  particles_.push_back(particle);
+}
+
 float GasContainer::GenerateRandomNumber(float min, float max) const {
   // code below derived from:
   // https://stackoverflow.com/questions/13408990/how-to-generate-random-float-number-in-c

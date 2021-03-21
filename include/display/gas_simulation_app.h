@@ -1,5 +1,7 @@
 #pragma once
 
+#include <components/histogram.h>
+
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
@@ -35,10 +37,17 @@ class IdealGasApp : public ci::app::App {
   void keyDown(ci::app::KeyEvent event) override;
 
  private:
-  GasContainer container_;
   const size_t kWindowWidth = 1500;
   const size_t kWindowHeight = 800;
   const glm::vec2 kDeltaVelocity{.05, .05};
+  const Particle kBlueParticle;
+  const Particle kOrangeParticle;
+  const Particle kWhiteParticle;
+
+  GasContainer container_;
+  Histogram blue_histogram_;
+  Histogram orange_histogram_;
+  Histogram white_histogram_;
 };
 
 }  // namespace idealgas

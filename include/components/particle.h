@@ -31,6 +31,8 @@ class Particle {
 
   float GetMass() const;
 
+  float GetSpeed() const;
+
   void SetVelocity(const glm::vec2& new_velocity);
 
   /**

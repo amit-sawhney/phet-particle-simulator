@@ -69,9 +69,9 @@ class CollisionPhysics {
   bool IsParticleCollidingWithBottomWall(const Particle& particle) const;
 
  private:
-  float leftWall_;
-  float rightWall_;
-  float topWall_;
-  float bottomWall_;
+  float left_wall_;
+  float right_wall_;
+  float top_wall_;
+  float bottom_wall_;
 };
 }  // namespace idealgas

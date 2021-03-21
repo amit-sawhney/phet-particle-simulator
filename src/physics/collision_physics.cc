@@ -4,10 +4,10 @@ namespace idealgas {
 
 CollisionPhysics::CollisionPhysics(const glm::vec2& top_left_corner,
                                    const glm::vec2& bottom_right_corner) {
-  leftWall_ = top_left_corner.x;
-  topWall_ = top_left_corner.y;
-  rightWall_ = bottom_right_corner.x;
-  bottomWall_ = bottom_right_corner.y;
+  left_wall_ = top_left_corner.x;
+  top_wall_ = top_left_corner.y;
+  right_wall_ = bottom_right_corner.x;
+  bottom_wall_ = bottom_right_corner.y;
 }
 
 CollisionPhysics::CollisionPhysics() = default;
@@ -61,7 +61,7 @@ bool CollisionPhysics::IsParticleCollidingWithTopWall(
   float y_velocity = particle.GetVelocity().y;
   float radius = particle.GetRadius();
 
-  return y_pos - radius <= topWall_ && y_velocity < 0;
+  return y_pos - radius <= top_wall_ && y_velocity < 0;
 }
 
 bool CollisionPhysics::IsParticleCollidingWithBottomWall(
@@ -70,7 +70,7 @@ bool CollisionPhysics::IsParticleCollidingWithBottomWall(
   float y_velocity = particle.GetVelocity().y;
   float radius = particle.GetRadius();
 
-  return y_pos + radius >= bottomWall_ && y_velocity > 0;
+  return y_pos + radius >= bottom_wall_ && y_velocity > 0;
 }
 
 bool CollisionPhysics::IsParticleCollidingWithLeftWall(
@@ -79,7 +79,7 @@ bool CollisionPhysics::IsParticleCollidingWithLeftWall(
   float x_velocity = particle.GetVelocity().x;
   float radius = particle.GetRadius();
 
-  return x_pos - radius <= leftWall_ && x_velocity < 0;
+  return x_pos - radius <= left_wall_ && x_velocity < 0;
 }
 
 bool CollisionPhysics::IsParticleCollidingWithRightWall(
@@ -88,7 +88,7 @@ bool CollisionPhysics::IsParticleCollidingWithRightWall(
   float x_velocity = particle.GetVelocity().x;
   float radius = particle.GetRadius();
 
-  return x_pos + radius >= rightWall_ && x_velocity > 0;
+  return x_pos + radius >= right_wall_ && x_velocity > 0;
 }
 
 }  // namespace idealgas
