@@ -38,8 +38,8 @@ class CollisionPhysics {
    * @param particle1 the first particle that collided in the container
    * @param particle2 the second particle that collided in the container
    */
-  void UpdateCollidedParticleVelocities(Particle& particle1,
-                                        Particle& particle2);
+  void UpdateCollidedParticleVelocities(Particle* particle1,
+                                        Particle* particle2);
   /**
    * Determines if a particle is colliding the top wall of the container
    * @param particle the particle in the container

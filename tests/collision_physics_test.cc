@@ -133,7 +133,7 @@ TEST_CASE("Particle velocities update according to the laws of physics") {
     idealgas::Particle right_particle(
         right_particle_position, right_particle_velocity, color, radius, mass);
 
-    physics.UpdateCollidedParticleVelocities(left_particle, right_particle);
+    physics.UpdateCollidedParticleVelocities(&left_particle, &right_particle);
 
     glm::vec2 expected_left_particle_velocity(-1, 0);
     glm::vec2 expected_right_particle_velocity(1, 0);
@@ -153,7 +153,7 @@ TEST_CASE("Particle velocities update according to the laws of physics") {
     idealgas::Particle right_particle(
         right_particle_position, right_particle_velocity, color, radius, mass);
 
-    physics.UpdateCollidedParticleVelocities(left_particle, right_particle);
+    physics.UpdateCollidedParticleVelocities(&left_particle, &right_particle);
 
     glm::vec2 expected_left_particle_velocity(-1, 0);
     glm::vec2 expected_right_particle_velocity(3, 0);
@@ -174,7 +174,7 @@ TEST_CASE("Particle velocities update according to the laws of physics") {
                                        bottom_particle_velocity, color, radius,
                                        mass);
 
-    physics.UpdateCollidedParticleVelocities(top_particle, bottom_particle);
+    physics.UpdateCollidedParticleVelocities(&top_particle, &bottom_particle);
 
     glm::vec2 expected_top_particle_velocity(0, -1);
     glm::vec2 expected_bottom_particle_velocity(0, 1);
@@ -195,7 +195,7 @@ TEST_CASE("Particle velocities update according to the laws of physics") {
                                        bottom_particle_velocity, color, radius,
                                        mass);
 
-    physics.UpdateCollidedParticleVelocities(top_particle, bottom_particle);
+    physics.UpdateCollidedParticleVelocities(&top_particle, &bottom_particle);
 
     glm::vec2 expected_top_particle_velocity(0, -1);
     glm::vec2 expected_bottom_particle_velocity(0, 3);
@@ -216,7 +216,7 @@ TEST_CASE("Particle velocities update according to the laws of physics") {
                                        bottom_particle_velocity, color, radius,
                                        mass);
 
-    physics.UpdateCollidedParticleVelocities(top_particle, bottom_particle);
+    physics.UpdateCollidedParticleVelocities(&top_particle, &bottom_particle);
 
     glm::vec2 expected_top_particle_velocity(-1, -1);
     glm::vec2 expected_bottom_particle_velocity(1, 1);
@@ -237,7 +237,7 @@ TEST_CASE("Particle velocities update according to the laws of physics") {
                                        bottom_particle_velocity, color, radius,
                                        mass);
 
-    physics.UpdateCollidedParticleVelocities(top_particle, bottom_particle);
+    physics.UpdateCollidedParticleVelocities(&top_particle, &bottom_particle);
 
     glm::vec2 expected_top_particle_velocity(-2, 2);
     glm::vec2 expected_bottom_particle_velocity(3, 5);
@@ -257,7 +257,7 @@ TEST_CASE("Particle velocities update according to the laws of physics") {
     idealgas::Particle right_particle(
         right_particle_position, right_particle_velocity, color, radius, mass);
 
-    physics.UpdateCollidedParticleVelocities(left_particle, right_particle);
+    physics.UpdateCollidedParticleVelocities(&left_particle, &right_particle);
 
     glm::vec2 expected_left_particle_velocity(0, 0);
     glm::vec2 expected_right_particle_velocity(1, 0);
@@ -278,7 +278,7 @@ TEST_CASE("Particle velocities update according to the laws of physics") {
                                        bottom_particle_velocity, color, radius,
                                        mass);
 
-    physics.UpdateCollidedParticleVelocities(top_particle, bottom_particle);
+    physics.UpdateCollidedParticleVelocities(&top_particle, &bottom_particle);
 
     glm::vec2 expected_top_particle_velocity(0, 0);
     glm::vec2 expected_bottom_particle_velocity(0, 1);
@@ -299,7 +299,7 @@ TEST_CASE("Particle velocities update according to the laws of physics") {
                                        bottom_particle_velocity, color, radius,
                                        mass);
 
-    physics.UpdateCollidedParticleVelocities(top_particle, bottom_particle);
+    physics.UpdateCollidedParticleVelocities(&top_particle, &bottom_particle);
 
     glm::vec2 expected_top_particle_velocity(0, 0);
     glm::vec2 expected_bottom_particle_velocity(1, 1);
@@ -325,7 +325,7 @@ TEST_CASE("Particle velocities update according to the laws of physics") {
                                        bottom_particle_velocity, color, radius,
                                        mass);
 
-    physics.UpdateCollidedParticleVelocities(top_particle, bottom_particle);
+    physics.UpdateCollidedParticleVelocities(&top_particle, &bottom_particle);
 
     glm::vec2 expected_top_particle_velocity(1, -1);
     glm::vec2 expected_middle_particle_velocity(1, 1);

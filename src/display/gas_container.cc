@@ -79,8 +79,8 @@ void GasContainer::DetermineParticleCollisions() {
       Particle& second_particle = particles_[particle_2_idx];
 
       if (physics_.DidParticlesCollide(first_particle, second_particle)) {
-        physics_.UpdateCollidedParticleVelocities(first_particle,
-                                                  second_particle);
+        physics_.UpdateCollidedParticleVelocities(&first_particle,
+                                                  &second_particle);
       }
     }
   }
