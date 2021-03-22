@@ -8,8 +8,8 @@ class Histogram {
  public:
   Histogram();
 
-  Histogram(std::vector<Particle> particles, glm::vec2 top_left_corner,
-            glm::vec2 bottom_right_corner, size_t bin_width, ci::Color bin_color);
+  Histogram(const std::vector<Particle>& particles, const glm::vec2& top_left_corner,
+            const glm::vec2& bottom_right_corner, float bin_width, const ci::Color& bin_color);
 
   void Draw();
 
@@ -24,7 +24,7 @@ class Histogram {
   glm::vec2 top_left_corner_;
   glm::vec2 bottom_right_corner_;
   std::vector<size_t> particle_bins_;
-  size_t bin_width_;
+  float bin_width_;
   ci::Color bin_color_;
   size_t num_bins_;
 };

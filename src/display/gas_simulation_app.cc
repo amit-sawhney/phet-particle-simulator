@@ -29,14 +29,12 @@ IdealGasApp::IdealGasApp()
                          default_particle_mass, particle_color);
 
   blue_histogram_ = Histogram(initial_particles, glm::vec2(650, 100),
-                              glm::vec2(850, 300), 2, kBlueParticle.GetColor());
-
+                              glm::vec2(850, 300), 1, kBlueParticle.GetColor());
   orange_histogram_ =
-      Histogram(initial_particles, glm::vec2(650, 400), glm::vec2(850, 600), 2,
+      Histogram(initial_particles, glm::vec2(650, 400), glm::vec2(850, 600), 1,
                 kOrangeParticle.GetColor());
-
   white_histogram_ =
-      Histogram(initial_particles, glm::vec2(900, 100), glm::vec2(1100, 300), 2,
+      Histogram(initial_particles, glm::vec2(900, 100), glm::vec2(1100, 300), 1,
                 kWhiteParticle.GetColor());
 
   container_ = container;
@@ -48,9 +46,7 @@ void IdealGasApp::draw() {
   ci::gl::clear(background_color);
 
   blue_histogram_.Draw();
-
   orange_histogram_.Draw();
-
   white_histogram_.Draw();
 
   container_.Display();

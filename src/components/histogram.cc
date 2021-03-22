@@ -6,14 +6,14 @@ namespace idealgas {
 
 Histogram::Histogram() = default;
 
-Histogram::Histogram(std::vector<Particle> particles, glm::vec2 top_left_corner,
-                     glm::vec2 bottom_right_corner, size_t bin_width,
-                     ci::Color bin_color) {
+Histogram::Histogram(const std::vector<Particle>& particles,
+                     const glm::vec2& top_left_corner,
+                     const glm::vec2& bottom_right_corner, float bin_width,
+                     const ci::Color& bin_color) {
   top_left_corner_ = top_left_corner;
   bottom_right_corner_ = bottom_right_corner;
   bin_width_ = bin_width;
   bin_color_ = bin_color;
-
   num_bins_ = CalculateNumOfBins(particles);
 
   UpdateParticleBins(particles);
@@ -29,7 +29,7 @@ void Histogram::Draw() {
   for (size_t bin = 0; bin < particle_bins_.size(); ++bin) {
     glm::vec2 top_left_bin_corner(
         top_left_corner_.x + bin + bin_display_width * bin,
-        bottom_right_corner_.y - particle_bins_[bin]);
+        bottom_right_corner_.y - 2 * particle_bins_[bin]);
 
     glm::vec2 bottom_right_bin_corner(
         top_left_corner_.x + bin_display_width * (bin + 1),
@@ -55,7 +55,7 @@ std::vector<size_t> Histogram::UpdateParticleBins(
 size_t Histogram::CalculateNumOfBins(const std::vector<Particle>& particles) {
   float max_speed = CalculateFastestParticle(particles);
 
-  return size_t(max_speed) / bin_width_ + 1;
+  return size_t(max_speed / bin_width_) + 1;
 }
 
 float Histogram::CalculateFastestParticle(
