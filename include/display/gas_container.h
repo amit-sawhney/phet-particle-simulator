@@ -70,6 +70,8 @@ class GasContainer {
 
   std::vector<Particle> GetParticles();
 
+  std::vector<Particle> GetParticlesByColor(ci::Color color);
+
  private:
   /**
    * Generates a specific amount of particles randomly positioned in the

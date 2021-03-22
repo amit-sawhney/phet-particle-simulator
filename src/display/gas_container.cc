@@ -50,6 +50,19 @@ std::vector<Particle> GasContainer::GetParticles() {
   return particles_;
 }
 
+std::vector<Particle> GasContainer::GetParticlesByColor(ci::Color color) {
+
+  std::vector<Particle> colored_particles;
+
+  for (const Particle& particle : particles_) {
+    if (particle.GetColor() == color) {
+      colored_particles.push_back(particle);
+    }
+  }
+
+  return colored_particles;
+}
+
 void GasContainer::ModifyParticlesSpeed(const glm::vec2& delta_velocity,
                                         bool should_increase_speed) {
   for (Particle& current_particle : particles_) {

@@ -29,7 +29,15 @@ IdealGasApp::IdealGasApp()
                          default_particle_mass, particle_color);
 
   blue_histogram_ = Histogram(initial_particles, glm::vec2(650, 100),
-                              glm::vec2(850, 300), 10);
+                              glm::vec2(850, 300), 2, kBlueParticle.GetColor());
+
+  orange_histogram_ =
+      Histogram(initial_particles, glm::vec2(650, 400), glm::vec2(850, 600), 2,
+                kOrangeParticle.GetColor());
+
+  white_histogram_ =
+      Histogram(initial_particles, glm::vec2(900, 100), glm::vec2(1100, 300), 2,
+                kWhiteParticle.GetColor());
 
   container_ = container;
   ci::app::setWindowSize(kWindowWidth, kWindowHeight);
@@ -41,10 +49,27 @@ void IdealGasApp::draw() {
 
   blue_histogram_.Draw();
 
+  orange_histogram_.Draw();
+
+  white_histogram_.Draw();
+
   container_.Display();
 }
 
 void IdealGasApp::update() {
+  std::vector<Particle> blue_particles =
+      container_.GetParticlesByColor(kBlueParticle.GetColor());
+
+  std::vector<Particle> orange_particles =
+      container_.GetParticlesByColor(kOrangeParticle.GetColor());
+
+  std::vector<Particle> white_particles =
+      container_.GetParticlesByColor(kWhiteParticle.GetColor());
+
+  blue_histogram_.UpdateParticleBins(blue_particles);
+  orange_histogram_.UpdateParticleBins(orange_particles);
+  white_histogram_.UpdateParticleBins(white_particles);
+
   container_.AdvanceOneFrame();
 }
 
