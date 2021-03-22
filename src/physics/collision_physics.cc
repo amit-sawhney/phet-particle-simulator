@@ -17,21 +17,24 @@ bool CollisionPhysics::DidParticlesCollide(const Particle& particle1,
   float particle_distances =
       glm::distance(particle1.GetPosition(), particle2.GetPosition());
 
-  bool areTouching =
+  bool are_touching =
       particle_distances <= particle1.GetRadius() + particle2.GetRadius();
 
   glm::vec2 delta_velocity = particle1.GetVelocity() - particle2.GetVelocity();
   glm::vec2 delta_position = particle1.GetPosition() - particle2.GetPosition();
 
-  bool areMovingTowardsEachOther = glm::dot(delta_velocity, delta_position) < 0;
+  bool are_moving_toward_each_other =
+      glm::dot(delta_velocity, delta_position) < 0;
 
-  return areTouching && areMovingTowardsEachOther;
+  return are_touching && are_moving_toward_each_other;
 }
 
 void CollisionPhysics::UpdateCollidedParticleVelocities(Particle* particle1,
                                                         Particle* particle2) {
-  glm::vec2 delta_position = particle1->GetPosition() - particle2->GetPosition();
-  glm::vec2 delta_velocity = particle1->GetVelocity() - particle2->GetVelocity();
+  glm::vec2 delta_position =
+      particle1->GetPosition() - particle2->GetPosition();
+  glm::vec2 delta_velocity =
+      particle1->GetVelocity() - particle2->GetVelocity();
 
   float mass_sum = particle1->GetMass() + particle2->GetMass();
 

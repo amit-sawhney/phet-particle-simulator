@@ -30,8 +30,8 @@ class GasContainer {
    * @param default_particle_color the default particle color to assign to the
    * generated particles
    */
-  GasContainer(std::vector<Particle> initial_particles, int num_rand_particles,
-               const glm::vec2& top_left_corner,
+  GasContainer(std::vector<Particle*> initial_particles,
+               size_t num_rand_particles, const glm::vec2& top_left_corner,
                const glm::vec2& bottom_right_corner,
                float default_particle_radius, float default_particle_mass,
                const ci::Color& default_particle_color);
@@ -40,6 +40,8 @@ class GasContainer {
    * A default constructor as required by the Ideal Gas class
    */
   GasContainer();
+
+  ~GasContainer();
 
   /**
    * Displays the container walls and the current positions of the particles.
@@ -66,11 +68,11 @@ class GasContainer {
    * Adds a specific particle configuration to the container
    * @param particle the particle configuration to add to the container
    */
-  void AddParticleToContainer(const Particle& particle);
+  void AddParticleToContainer(Particle* particle);
 
-  std::vector<Particle> GetParticles();
+  std::vector<Particle*> GetParticles();
 
-  std::vector<Particle> GetParticlesByColor(ci::Color color);
+  std::vector<Particle*> GetParticlesByColor(ci::Color color);
 
  private:
   /**
@@ -125,7 +127,7 @@ class GasContainer {
    */
   void DetermineParticleCollisions();
 
-  std::vector<Particle> particles_;
+  std::vector<Particle*> particles_;
   glm::vec2 top_left_corner_;
   glm::vec2 bottom_right_corner_;
   float default_particle_radius_;

@@ -40,14 +40,21 @@ class IdealGasApp : public ci::app::App {
   const size_t kWindowWidth = 1500;
   const size_t kWindowHeight = 800;
   const glm::vec2 kDeltaVelocity{.05, .05};
-  const Particle kBlueParticle;
-  const Particle kOrangeParticle;
-  const Particle kWhiteParticle;
+
+  float kDefaultParticleRadius = 3.0;
+  float kDefaultParticleMass = 1.0;
+  ci::Color kDefaultParticleColor = ci::Color("orange");
 
   GasContainer container_;
   Histogram blue_histogram_;
   Histogram orange_histogram_;
   Histogram white_histogram_;
+  Particle blue_particle_ =
+      Particle(glm::vec2(550, 550), glm::vec2(-3, -1), ci::Color("blue"), 3, 5);
+  Particle orange_particle_ = Particle(glm::vec2(550, 550), glm::vec2(-2, -2),
+                                       ci::Color("white"), 6, 8);
+  Particle white_particle_ = Particle(glm::vec2(550, 550), glm::vec2(-1, -1.5),
+                                      ci::Color("orange"), 9, 11);
 };
 
 }  // namespace idealgas

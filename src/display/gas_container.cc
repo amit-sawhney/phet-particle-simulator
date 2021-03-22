@@ -4,8 +4,8 @@ namespace idealgas {
 
 using glm::vec2;
 
-GasContainer::GasContainer(std::vector<Particle> initial_particles,
-                           int num_rand_particles,
+GasContainer::GasContainer(std::vector<Particle*> initial_particles,
+                           size_t num_rand_particles,
                            const glm::vec2& top_left_corner,
                            const glm::vec2& bottom_right_corner,
                            float default_particle_radius,
@@ -25,11 +25,15 @@ GasContainer::GasContainer(std::vector<Particle> initial_particles,
 
 GasContainer::GasContainer() = default;
 
+GasContainer::~GasContainer() {
+  particles_.clear();
+}
+
 void GasContainer::Display() const {
-  for (Particle current_particle : particles_) {
-    ci::gl::color(current_particle.GetColor());
-    ci::gl::drawSolidCircle(current_particle.GetPosition(),
-                            current_particle.GetRadius());
+  for (Particle* current_particle : particles_) {
+    ci::gl::color(current_particle->GetColor());
+    ci::gl::drawSolidCircle(current_particle->GetPosition(),
+                            current_particle->GetRadius());
   }
   ci::gl::color(ci::Color("white"));
   ci::gl::drawStrokedRect(ci::Rectf(top_left_corner_, bottom_right_corner_));
@@ -41,21 +45,20 @@ void GasContainer::AdvanceOneFrame() {
   GasContainer::DetermineParticleCollisions();
 
   // Update the position of all of the particles
-  for (Particle& current_particle : particles_) {
-    current_particle.UpdatePosition();
+  for (Particle* current_particle : particles_) {
+    current_particle->UpdatePosition();
   }
 }
 
-std::vector<Particle> GasContainer::GetParticles() {
+std::vector<Particle*> GasContainer::GetParticles() {
   return particles_;
 }
 
-std::vector<Particle> GasContainer::GetParticlesByColor(ci::Color color) {
+std::vector<Particle*> GasContainer::GetParticlesByColor(ci::Color color) {
+  std::vector<Particle*> colored_particles;
 
-  std::vector<Particle> colored_particles;
-
-  for (const Particle& particle : particles_) {
-    if (particle.GetColor() == color) {
+  for (Particle* particle : particles_) {
+    if (particle->GetColor() == color) {
       colored_particles.push_back(particle);
     }
   }
@@ -65,8 +68,8 @@ std::vector<Particle> GasContainer::GetParticlesByColor(ci::Color color) {
 
 void GasContainer::ModifyParticlesSpeed(const glm::vec2& delta_velocity,
                                         bool should_increase_speed) {
-  for (Particle& current_particle : particles_) {
-    current_particle.UpdateVelocity(delta_velocity, should_increase_speed);
+  for (Particle* current_particle : particles_) {
+    current_particle->UpdateVelocity(delta_velocity, should_increase_speed);
   }
 }
 
@@ -75,31 +78,31 @@ void GasContainer::DetermineParticleCollisions() {
        ++particle_1_idx) {
     for (size_t particle_2_idx = particle_1_idx + 1;
          particle_2_idx < particles_.size(); ++particle_2_idx) {
-      Particle& first_particle = particles_[particle_1_idx];
-      Particle& second_particle = particles_[particle_2_idx];
+      Particle* first_particle = particles_[particle_1_idx];
+      Particle* second_particle = particles_[particle_2_idx];
 
-      if (physics_.DidParticlesCollide(first_particle, second_particle)) {
-        physics_.UpdateCollidedParticleVelocities(&first_particle,
-                                                  &second_particle);
+      if (physics_.DidParticlesCollide(*first_particle, *second_particle)) {
+        physics_.UpdateCollidedParticleVelocities(first_particle,
+                                                  second_particle);
       }
     }
   }
 }
 
 void GasContainer::DetermineWallCollisions() {
-  for (Particle& current_particle : particles_) {
-    float x_velocity = current_particle.GetVelocity().x;
-    float y_velocity = current_particle.GetVelocity().y;
+  for (Particle* current_particle : particles_) {
+    float x_velocity = current_particle->GetVelocity().x;
+    float y_velocity = current_particle->GetVelocity().y;
 
-    if (physics_.IsParticleCollidingWithTopWall(current_particle) ||
-        physics_.IsParticleCollidingWithBottomWall(current_particle)) {
-      current_particle.SetVelocity(glm::vec2(x_velocity, -y_velocity));
+    if (physics_.IsParticleCollidingWithTopWall(*current_particle) ||
+        physics_.IsParticleCollidingWithBottomWall(*current_particle)) {
+      current_particle->SetVelocity(glm::vec2(x_velocity, -y_velocity));
       y_velocity = -y_velocity;
     }
 
-    if (physics_.IsParticleCollidingWithRightWall(current_particle) ||
-        physics_.IsParticleCollidingWithLeftWall(current_particle)) {
-      current_particle.SetVelocity(glm::vec2(-x_velocity, y_velocity));
+    if (physics_.IsParticleCollidingWithRightWall(*current_particle) ||
+        physics_.IsParticleCollidingWithLeftWall(*current_particle)) {
+      current_particle->SetVelocity(glm::vec2(-x_velocity, y_velocity));
     }
   }
 }
@@ -115,12 +118,13 @@ void GasContainer::AddParticleToContainer(const glm::vec2& new_position) {
   glm::vec2 new_velocity =
       GasContainer::CalculateRandomInitialVelocity(default_particle_radius_);
   ci::Color color(default_particle_color_);
-  Particle new_particle(new_position, new_velocity, color,
-                        default_particle_radius_, default_particle_mass_);
+  Particle* new_particle =
+      new Particle(new_position, new_velocity, color, default_particle_radius_,
+                   default_particle_mass_);
   particles_.push_back(new_particle);
 }
 
-void GasContainer::AddParticleToContainer(const Particle& particle) {
+void GasContainer::AddParticleToContainer(Particle* particle) {
   particles_.push_back(particle);
 }
 

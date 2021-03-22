@@ -8,18 +8,18 @@ class Histogram {
  public:
   Histogram();
 
-  Histogram(const std::vector<Particle>& particles, const glm::vec2& top_left_corner,
+  Histogram(const std::vector<Particle*>& particles, const glm::vec2& top_left_corner,
             const glm::vec2& bottom_right_corner, float bin_width, const ci::Color& bin_color);
 
   void Draw();
 
   std::vector<size_t> UpdateParticleBins(
-      const std::vector<Particle>& particles);
+      const std::vector<Particle*>& particles);
 
-  size_t CalculateNumOfBins(const std::vector<Particle>& particles);
+  size_t CalculateNumOfBins(const std::vector<Particle*>& particles);
 
  private:
-  float CalculateFastestParticle(const std::vector<Particle>& particles);
+  float CalculateFastestParticle(const std::vector<Particle*>& particles);
 
   glm::vec2 top_left_corner_;
   glm::vec2 bottom_right_corner_;
