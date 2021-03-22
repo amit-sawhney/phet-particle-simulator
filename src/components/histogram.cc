@@ -1,7 +1,5 @@
 #include "components/histogram.h"
 
-#include <components/particle.h>
-
 namespace idealgas {
 
 Histogram::Histogram() = default;
