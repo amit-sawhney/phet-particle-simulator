@@ -41,6 +41,9 @@ class GasContainer {
    */
   GasContainer();
 
+  /**
+   * A deconstructor to deallocate the memory that was utilized
+   */
   ~GasContainer();
 
   /**
@@ -72,6 +75,11 @@ class GasContainer {
 
   std::vector<Particle*> GetParticles();
 
+  /**
+   * Gets all of the particles in the container by a color filter
+   * @param color the color to filter by
+   * @return all of the particles in the container with specified color
+   */
   std::vector<Particle*> GetParticlesByColor(ci::Color color);
 
  private:

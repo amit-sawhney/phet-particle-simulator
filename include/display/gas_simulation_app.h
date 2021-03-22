@@ -40,7 +40,6 @@ class IdealGasApp : public ci::app::App {
   const size_t kWindowWidth = 1500;
   const size_t kWindowHeight = 800;
   const glm::vec2 kDeltaVelocity{.05, .05};
-
   float kDefaultParticleRadius = 3.0;
   float kDefaultParticleMass = 1.0;
   ci::Color kDefaultParticleColor = ci::Color("orange");

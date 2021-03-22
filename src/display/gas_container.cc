@@ -2,8 +2,6 @@
 
 namespace idealgas {
 
-using glm::vec2;
-
 GasContainer::GasContainer(std::vector<Particle*> initial_particles,
                            size_t num_rand_particles,
                            const glm::vec2& top_left_corner,
