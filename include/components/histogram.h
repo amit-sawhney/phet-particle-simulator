@@ -58,19 +58,37 @@ class Histogram {
    */
   float CalculateFastestParticle(const std::vector<Particle*>& particles);
 
+  /**
+   * Determines which bin of particles has the most particles
+   * @return the number of particles in that bin
+   */
   size_t CalculateMostParticlesInSingleBin();
 
-  void DrawHistogramTitle();
+  /**
+   * Draws the x axis label on the histogram
+   */
+  void DrawHistogramXAxisLabel(const ci::Color& text_color, float text_size,
+                               ci::Font text_font);
 
+  /**
+   * Determines the values and location of each mark up the y axis
+   */
+  void DrawHistogramYAxisValues(const ci::Color& text_color, float text_size,
+                                const ci::Font& text_font);
+
+  /**
+   * Draws the histogram
+   */
   void DrawHistogramBins();
 
   glm::vec2 top_left_corner_;
   glm::vec2 bottom_right_corner_;
+  float histogram_height_;
+  float histogram_width_;
   std::vector<size_t> particle_bins_;
   float bin_width_;
   ci::Color bin_color_;
   size_t num_bins_;
   size_t num_y_axis_marks_ = 4;
-  size_t num_x_axis_marks_ = 4;
 };
 }  // namespace idealgas
