@@ -60,6 +60,13 @@ void IdealGasApp::update() {
 }
 
 void IdealGasApp::keyDown(ci::app::KeyEvent event) {
+  Particle* blue_particle = new Particle(glm::vec2(550, 550), glm::vec2(-3, -1),
+                                         ci::Color("blue"), 3, 5);
+  Particle* orange_particle = new Particle(
+      glm::vec2(550, 550), glm::vec2(-2, -2), ci::Color("orange"), 6, 8);
+  Particle* white_particle = new Particle(
+      glm::vec2(550, 550), glm::vec2(-1, -1.5), ci::Color("white"), 9, 11);
+
   switch (event.getCode()) {
     case ci::app::KeyEvent::KEY_UP:
       container_.ModifyParticlesSpeed(kDeltaVelocity, true);
@@ -68,13 +75,13 @@ void IdealGasApp::keyDown(ci::app::KeyEvent event) {
       container_.ModifyParticlesSpeed(kDeltaVelocity, false);
       break;
     case ci::app::KeyEvent::KEY_b:
-      container_.AddParticleToContainer(&blue_particle_);
+      container_.AddParticleToContainer(blue_particle);
       break;
     case ci::app::KeyEvent::KEY_o:
-      container_.AddParticleToContainer(&orange_particle_);
+      container_.AddParticleToContainer(orange_particle);
       break;
     case ci::app::KeyEvent::KEY_w:
-      container_.AddParticleToContainer(&white_particle_);
+      container_.AddParticleToContainer(white_particle);
       break;
   }
 }

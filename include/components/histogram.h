@@ -58,11 +58,19 @@ class Histogram {
    */
   float CalculateFastestParticle(const std::vector<Particle*>& particles);
 
+  size_t CalculateMostParticlesInSingleBin();
+
+  void DrawHistogramTitle();
+
+  void DrawHistogramBins();
+
   glm::vec2 top_left_corner_;
   glm::vec2 bottom_right_corner_;
   std::vector<size_t> particle_bins_;
   float bin_width_;
   ci::Color bin_color_;
   size_t num_bins_;
+  size_t num_y_axis_marks_ = 4;
+  size_t num_x_axis_marks_ = 4;
 };
 }  // namespace idealgas
