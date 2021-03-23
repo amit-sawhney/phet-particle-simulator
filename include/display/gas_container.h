@@ -80,7 +80,7 @@ class GasContainer {
    * @param color the color to filter by
    * @return all of the particles in the container with specified color
    */
-  std::vector<Particle*> GetParticlesByColor(ci::Color color);
+  std::vector<Particle*> GetParticlesByColor(const ci::Color& color);
 
  private:
   /**
@@ -88,7 +88,7 @@ class GasContainer {
    * container
    * @param particle_count the number of random particles to add
    */
-  void AddRandomParticles(int particle_count);
+  void AddRandomParticles(size_t particle_count);
 
   /**
    * Calculates a random initial position for a particle within the container

@@ -10,11 +10,8 @@ IdealGasApp::IdealGasApp() {
   initial_particles.push_back(&white_particle_);
   initial_particles.push_back(&blue_particle_);
 
-  glm::vec2 top_left_corner(100, 100);
-  glm::vec2 bottom_right_corner(600, 600);
-
-  GasContainer container(initial_particles, 0, top_left_corner,
-                         bottom_right_corner, kDefaultParticleRadius,
+  GasContainer container(initial_particles, 0, kTopLeftCorner,
+                         kBottomRightCorner, kDefaultParticleRadius,
                          kDefaultParticleMass, kDefaultParticleColor);
 
   blue_histogram_ =

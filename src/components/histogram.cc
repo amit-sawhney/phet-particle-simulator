@@ -31,9 +31,9 @@ void Histogram::Draw() {
     y_interval = 10;
   }
 
-  int count_looped = 0;
+  size_t count_looped = 0;
   for (float mark = 0; mark <= histogram_height; mark += y_interval) {
-    int mark_value = 0;
+    size_t mark_value = 0;
 
     if (count_looped != 0) {
       mark_value =

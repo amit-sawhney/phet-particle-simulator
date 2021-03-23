@@ -52,7 +52,8 @@ std::vector<Particle*> GasContainer::GetParticles() {
   return particles_;
 }
 
-std::vector<Particle*> GasContainer::GetParticlesByColor(ci::Color color) {
+std::vector<Particle*> GasContainer::GetParticlesByColor(
+    const ci::Color& color) {
   std::vector<Particle*> colored_particles;
 
   for (Particle* particle : particles_) {
@@ -105,8 +106,8 @@ void GasContainer::DetermineWallCollisions() {
   }
 }
 
-void GasContainer::AddRandomParticles(int particle_count) {
-  for (int particle = 0; particle < particle_count; ++particle) {
+void GasContainer::AddRandomParticles(size_t particle_count) {
+  for (size_t particle = 0; particle < particle_count; ++particle) {
     glm::vec2 rand_position = GasContainer::CalculateRandomInitialPosition();
     GasContainer::AddParticleToContainer(rand_position);
   }
@@ -133,16 +134,17 @@ float GasContainer::GenerateRandomNumber(float min, float max) const {
 }
 
 glm::vec2 GasContainer::CalculateRandomInitialPosition() const {
-  int x_position = int(GasContainer::GenerateRandomNumber(
+  size_t x_position = int(GasContainer::GenerateRandomNumber(
       float(top_left_corner_.x), float(bottom_right_corner_.y)));
-  int y_position = int(GasContainer::GenerateRandomNumber(
+  size_t y_position = int(GasContainer::GenerateRandomNumber(
       float(top_left_corner_.x), float(bottom_right_corner_.y)));
   return glm::vec2(x_position, y_position);
 }
 
 glm::vec2 GasContainer::CalculateRandomInitialVelocity(
     const float particle_radius) const {
-  float velocity_range = 0.7f * particle_radius;
+  float velocity_reduction_factor = 0.7f;
+  float velocity_range = velocity_reduction_factor * particle_radius;
   float x_velocity =
       GasContainer::GenerateRandomNumber(-velocity_range, velocity_range);
   float y_velocity =

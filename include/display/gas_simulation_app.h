@@ -40,9 +40,11 @@ class IdealGasApp : public ci::app::App {
   const size_t kWindowWidth = 1500;
   const size_t kWindowHeight = 800;
   const glm::vec2 kDeltaVelocity{.05, .05};
-  float kDefaultParticleRadius = 3.0;
-  float kDefaultParticleMass = 1.0;
-  ci::Color kDefaultParticleColor = ci::Color("orange");
+  const glm::vec2 kTopLeftCorner{100, 100};
+  const glm::vec2 kBottomRightCorner{600, 600};
+  const float kDefaultParticleRadius = 3.0;
+  const float kDefaultParticleMass = 1.0;
+  const ci::Color kDefaultParticleColor = ci::Color("orange");
 
   GasContainer container_;
   Histogram blue_histogram_;
