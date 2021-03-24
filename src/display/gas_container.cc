@@ -96,6 +96,8 @@ void GasContainer::DetermineWallCollisions() {
     if (physics_.IsParticleCollidingWithTopWall(*current_particle) ||
         physics_.IsParticleCollidingWithBottomWall(*current_particle)) {
       current_particle->SetVelocity(glm::vec2(x_velocity, -y_velocity));
+
+      // Update y_velocity properly if particle is also colliding with sides
       y_velocity = -y_velocity;
     }
 

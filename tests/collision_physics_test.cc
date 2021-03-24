@@ -335,6 +335,138 @@ TEST_CASE("Particle velocities update according to the laws of physics") {
     REQUIRE(middle_particle.GetVelocity() == expected_middle_particle_velocity);
     REQUIRE(bottom_particle.GetVelocity() == expected_bottom_particle_velocity);
   }
+
+  SECTION("Particles moving horizontally with different mass and same speed") {
+    glm::vec2 left_particle_position(20, 20);
+    glm::vec2 left_particle_velocity(1, 0);
+    float mass_1 = 1.0f;
+    idealgas::Particle left_particle(
+        left_particle_position, left_particle_velocity, color, radius, mass_1);
+
+    glm::vec2 right_particle_position(30, 20);
+    glm::vec2 right_particle_velocity(-1, 0);
+    float mass_2 = 3.0f;
+    idealgas::Particle right_particle(
+        right_particle_position, right_particle_velocity, color, radius, mass_2);
+
+    physics.UpdateCollidedParticleVelocities(&left_particle, &right_particle);
+
+    glm::vec2 expected_left_particle_velocity(-2, 0);
+    glm::vec2 expected_right_particle_velocity(0, 0);
+
+    REQUIRE(left_particle.GetVelocity() == expected_left_particle_velocity);
+    REQUIRE(right_particle.GetVelocity() == expected_right_particle_velocity);
+  }
+
+  SECTION("Particles moving horizontally with different mass and speed") {
+    glm::vec2 left_particle_position(20, 20);
+    glm::vec2 left_particle_velocity(2, 0);
+    float mass_1 = 1.0f;
+    idealgas::Particle left_particle(
+        left_particle_position, left_particle_velocity, color, radius, mass_1);
+
+    glm::vec2 right_particle_position(30, 20);
+    glm::vec2 right_particle_velocity(-1, 0);
+    float mass_2 = 3.0f;
+    idealgas::Particle right_particle(
+        right_particle_position, right_particle_velocity, color, radius, mass_2);
+
+    physics.UpdateCollidedParticleVelocities(&left_particle, &right_particle);
+
+    glm::vec2 expected_left_particle_velocity(-2.5, 0);
+    glm::vec2 expected_right_particle_velocity(0.5, 0);
+
+    REQUIRE(left_particle.GetVelocity() == expected_left_particle_velocity);
+    REQUIRE(right_particle.GetVelocity() == expected_right_particle_velocity);
+  }
+
+  SECTION("Particles moving vertically with different mass and same speed ") {
+    glm::vec2 left_particle_position(20, 20);
+    glm::vec2 left_particle_velocity(0, 1);
+    float mass_1 = 1.0f;
+    idealgas::Particle left_particle(
+        left_particle_position, left_particle_velocity, color, radius, mass_1);
+
+    glm::vec2 right_particle_position(20, 30);
+    glm::vec2 right_particle_velocity(0, -1);
+    float mass_2 = 3.0f;
+    idealgas::Particle right_particle(
+        right_particle_position, right_particle_velocity, color, radius, mass_2);
+
+    physics.UpdateCollidedParticleVelocities(&left_particle, &right_particle);
+
+    glm::vec2 expected_left_particle_velocity(0, -2);
+    glm::vec2 expected_right_particle_velocity(0, 0);
+
+    REQUIRE(left_particle.GetVelocity() == expected_left_particle_velocity);
+    REQUIRE(right_particle.GetVelocity() == expected_right_particle_velocity);
+  }
+
+  SECTION("Particles moving vertically with different mass and speed") {
+    glm::vec2 left_particle_position(20, 20);
+    glm::vec2 left_particle_velocity(0, 2);
+    float mass_1 = 1.0f;
+    idealgas::Particle left_particle(
+        left_particle_position, left_particle_velocity, color, radius, mass_1);
+
+    glm::vec2 right_particle_position(20, 30);
+    glm::vec2 right_particle_velocity(0, -1);
+    float mass_2 = 3.0f;
+    idealgas::Particle right_particle(
+        right_particle_position, right_particle_velocity, color, radius, mass_2);
+
+    physics.UpdateCollidedParticleVelocities(&left_particle, &right_particle);
+
+    glm::vec2 expected_left_particle_velocity(0, -2.5);
+    glm::vec2 expected_right_particle_velocity(0, 0.5);
+
+    REQUIRE(left_particle.GetVelocity() == expected_left_particle_velocity);
+    REQUIRE(right_particle.GetVelocity() == expected_right_particle_velocity);
+  }
+
+  SECTION("Particle moving diagonally with different mass and same speed") {
+    glm::vec2 left_particle_position(20, 20);
+    glm::vec2 left_particle_velocity(1, 1);
+    float mass_1 = 1.0f;
+    idealgas::Particle left_particle(
+        left_particle_position, left_particle_velocity, color, radius, mass_1);
+
+    glm::vec2 right_particle_position(30, 30);
+    glm::vec2 right_particle_velocity(-1, -1);
+    float mass_2 = 3.0f;
+    idealgas::Particle right_particle(
+        right_particle_position, right_particle_velocity, color, radius, mass_2);
+
+    physics.UpdateCollidedParticleVelocities(&left_particle, &right_particle);
+
+    glm::vec2 expected_left_particle_velocity(-2, -2);
+    glm::vec2 expected_right_particle_velocity(0, 0);
+
+    REQUIRE(left_particle.GetVelocity() == expected_left_particle_velocity);
+    REQUIRE(right_particle.GetVelocity() == expected_right_particle_velocity);
+  }
+
+  SECTION("Particle moving diagonally with different mass and speed") {
+    glm::vec2 left_particle_position(20, 20);
+    glm::vec2 left_particle_velocity(2, 2);
+    float mass_1 = 1.0f;
+    idealgas::Particle left_particle(
+        left_particle_position, left_particle_velocity, color, radius, mass_1);
+
+    glm::vec2 right_particle_position(30, 30);
+    glm::vec2 right_particle_velocity(-1, -1);
+    float mass_2 = 3.0f;
+    idealgas::Particle right_particle(
+        right_particle_position, right_particle_velocity, color, radius, mass_2);
+
+    physics.UpdateCollidedParticleVelocities(&left_particle, &right_particle);
+
+    glm::vec2 expected_left_particle_velocity(-2.5, -2.5);
+    glm::vec2 expected_right_particle_velocity(0.5, 0.5);
+
+    REQUIRE(left_particle.GetVelocity() == expected_left_particle_velocity);
+    REQUIRE(right_particle.GetVelocity() == expected_right_particle_velocity);
+  }
 }
 
 TEST_CASE("Particle collides with the walls of the container") {
