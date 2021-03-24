@@ -9,13 +9,14 @@ Histogram::Histogram() = default;
 Histogram::Histogram(const std::vector<Particle*>& particles,
                      const glm::vec2& top_left_corner,
                      const glm::vec2& bottom_right_corner, float bin_width,
-                     const ci::Color& bin_color) {
+                     const ci::Color& bin_color, size_t num_y_axis_marks) {
   top_left_corner_ = top_left_corner;
   bottom_right_corner_ = bottom_right_corner;
   histogram_height_ = bottom_right_corner_.y - top_left_corner_.y;
   histogram_width_ = bottom_right_corner_.x - top_left_corner_.x;
   bin_width_ = bin_width;
   bin_color_ = bin_color;
+  num_y_axis_marks_ = num_y_axis_marks;
   num_bins_ = CalculateNumOfBins(particles);
 }
 
@@ -72,21 +73,20 @@ void Histogram::DrawHistogramYAxisValues(const ci::Color& text_color,
 }
 
 void Histogram::DrawHistogramBins() {
-  size_t bin_display_width = size_t(histogram_width_) / num_bins_;
+  size_t display_width = size_t(histogram_width_) / num_bins_;
 
   size_t max_particles = CalculateMostParticlesInSingleBin();
 
   for (size_t bin = 0; bin < particle_bins_.size(); ++bin) {
-    float num_particles = particle_bins_[bin];
+    size_t num_particles = particle_bins_[bin];
     float bin_height = num_particles / float(max_particles) * histogram_height_;
 
-    glm::vec2 top_left_bin_corner(
-        top_left_corner_.x + float(bin + bin_display_width * bin),
-        bottom_right_corner_.y - bin_height);
+    float top_left_x = top_left_corner_.x + float(bin + display_width * bin);
+    float top_left_y = bottom_right_corner_.y - bin_height;
+    glm::vec2 top_left_bin_corner(top_left_x, top_left_y);
 
-    glm::vec2 bottom_right_bin_corner(
-        top_left_corner_.x + float(bin_display_width * (bin + 1)),
-        bottom_right_corner_.y);
+    float bottom_right_x = top_left_corner_.x + display_width * (bin + 1);
+    glm::vec2 bottom_right_bin_corner(bottom_right_x, bottom_right_corner_.y);
     ci::gl::drawSolidRect(
         ci::Rectf(top_left_bin_corner, bottom_right_bin_corner));
   }

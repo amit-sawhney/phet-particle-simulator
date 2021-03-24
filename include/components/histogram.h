@@ -27,7 +27,7 @@ class Histogram {
   Histogram(const std::vector<Particle*>& particles,
             const glm::vec2& top_left_corner,
             const glm::vec2& bottom_right_corner, float bin_width,
-            const ci::Color& bin_color);
+            const ci::Color& bin_color, size_t num_y_axis_marks);
 
   /**
    * Draws the Histogram on the screen of cinder according to configuration
@@ -89,6 +89,6 @@ class Histogram {
   float bin_width_;
   ci::Color bin_color_;
   size_t num_bins_;
-  size_t num_y_axis_marks_ = 4;
+  size_t num_y_axis_marks_;
 };
 }  // namespace idealgas

@@ -16,13 +16,13 @@ IdealGasApp::IdealGasApp() {
 
   blue_histogram_ =
       Histogram(initial_particles, glm::vec2(650, 100), glm::vec2(850, 300), 1,
-                blue_particle_.GetColor());
+                blue_particle_.GetColor(), 4);
   orange_histogram_ =
       Histogram(initial_particles, glm::vec2(650, 400), glm::vec2(850, 600), 1,
-                orange_particle_.GetColor());
+                orange_particle_.GetColor(), 4);
   white_histogram_ =
       Histogram(initial_particles, glm::vec2(900, 100), glm::vec2(1100, 300), 1,
-                white_particle_.GetColor());
+                white_particle_.GetColor(), 4);
 
   container_ = container;
   ci::app::setWindowSize(kWindowWidth, kWindowHeight);
