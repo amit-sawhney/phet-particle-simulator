@@ -16,9 +16,9 @@ TEST_CASE("Histogram updates with particles properly") {
     std::vector<size_t> histogram_vector =
         histogram.UpdateParticleBins(particles);
 
-    std::vector<size_t> expected_histogram({});
+    std::vector<size_t> expected_histogram({0});
 
-    REQUIRE(histogram_vector.size() == 0);
+    REQUIRE(histogram_vector.size() == 1);
     REQUIRE(expected_histogram == histogram_vector);
   }
 

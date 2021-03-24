@@ -77,7 +77,7 @@ class Histogram {
                                 const ci::Font& text_font);
 
   /**
-   * Draws the histogram
+   * Draws each of the histogram bins
    */
   void DrawHistogramBins();
 
@@ -85,8 +85,8 @@ class Histogram {
   glm::vec2 bottom_right_corner_;
   float histogram_height_;
   float histogram_width_;
-  std::vector<size_t> particle_bins_;
   float bin_width_;
+  std::vector<size_t> particle_bins_;
   ci::Color bin_color_;
   size_t num_bins_;
   size_t num_y_axis_marks_;

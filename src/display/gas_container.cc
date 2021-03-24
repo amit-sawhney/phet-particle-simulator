@@ -2,7 +2,7 @@
 
 namespace idealgas {
 
-GasContainer::GasContainer(std::vector<Particle*> initial_particles,
+GasContainer::GasContainer(const std::vector<Particle*>& initial_particles,
                            size_t num_rand_particles,
                            const glm::vec2& top_left_corner,
                            const glm::vec2& bottom_right_corner,
@@ -75,14 +75,14 @@ void GasContainer::ModifyParticlesSpeed(const glm::vec2& delta_velocity,
 void GasContainer::DetermineParticleCollisions() {
   for (size_t particle_1_idx = 0; particle_1_idx < particles_.size() - 1;
        ++particle_1_idx) {
+    // Compare all of the particles with each the first particle past this point
     for (size_t particle_2_idx = particle_1_idx + 1;
          particle_2_idx < particles_.size(); ++particle_2_idx) {
-      Particle* first_particle = particles_[particle_1_idx];
-      Particle* second_particle = particles_[particle_2_idx];
+      Particle* particle1 = particles_[particle_1_idx];
+      Particle* particle2 = particles_[particle_2_idx];
 
-      if (physics_.DidParticlesCollide(*first_particle, *second_particle)) {
-        physics_.UpdateCollidedParticleVelocities(first_particle,
-                                                  second_particle);
+      if (physics_.DidParticlesCollide(*particle1, *particle2)) {
+        physics_.UpdateCollidedParticleVelocities(particle1, particle2);
       }
     }
   }

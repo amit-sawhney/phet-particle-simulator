@@ -41,7 +41,7 @@ void Histogram::DrawHistogramXAxisLabel(const ci::Color& text_color,
                                         float text_size, ci::Font text_font) {
   std::string text_label = "Speed of particles";
 
-  float x_position = top_left_corner_.x + (histogram_width_) / 2;
+  float x_position = top_left_corner_.x + histogram_width_ / 2;
   float y_position = bottom_right_corner_.y + text_size;
 
   ci::gl::drawStringCentered(text_label, glm::vec2(x_position, y_position),
@@ -81,11 +81,14 @@ void Histogram::DrawHistogramBins() {
     size_t num_particles = particle_bins_[bin];
     float bin_height = num_particles / float(max_particles) * histogram_height_;
 
-    float top_left_x = top_left_corner_.x + float(bin + display_width * bin);
+    float top_left_x = top_left_corner_.x + bin + display_width * bin;
     float top_left_y = bottom_right_corner_.y - bin_height;
+
     glm::vec2 top_left_bin_corner(top_left_x, top_left_y);
 
-    float bottom_right_x = top_left_corner_.x + display_width * (bin + 1);
+    float bottom_right_x =
+        top_left_corner_.x + float(display_width * (bin + 1));
+
     glm::vec2 bottom_right_bin_corner(bottom_right_x, bottom_right_corner_.y);
     ci::gl::drawSolidRect(
         ci::Rectf(top_left_bin_corner, bottom_right_bin_corner));
@@ -123,7 +126,7 @@ size_t Histogram::CalculateMostParticlesInSingleBin() {
 
 float Histogram::CalculateFastestParticle(
     const std::vector<Particle*>& particles) {
-  float max_speed = -1;
+  float max_speed = 0;
 
   for (Particle* particle : particles) {
     max_speed = std::max(particle->GetSpeed(), max_speed);

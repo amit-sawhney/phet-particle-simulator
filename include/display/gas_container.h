@@ -30,7 +30,7 @@ class GasContainer {
    * @param default_particle_color the default particle color to assign to the
    * generated particles
    */
-  GasContainer(std::vector<Particle*> initial_particles,
+  GasContainer(const std::vector<Particle*>& initial_particles,
                size_t num_rand_particles, const glm::vec2& top_left_corner,
                const glm::vec2& bottom_right_corner,
                float default_particle_radius, float default_particle_mass,
