@@ -46,6 +46,10 @@ class IdealGasApp : public ci::app::App {
   const float kDefaultParticleMass = 1.0;
   const ci::Color kDefaultParticleColor = ci::Color("orange");
 
+  Particle* GenerateParticle(const glm::vec2& position,
+                             const glm::vec2& velocity, const ci::Color& color,
+                             float radius, float mass);
+
   GasContainer container_;
   Histogram blue_histogram_;
   Histogram orange_histogram_;
@@ -53,9 +57,9 @@ class IdealGasApp : public ci::app::App {
   Particle blue_particle_ =
       Particle(glm::vec2(550, 550), glm::vec2(-3, -1), ci::Color("blue"), 3, 5);
   Particle orange_particle_ = Particle(glm::vec2(550, 550), glm::vec2(-2, -2),
-                                       ci::Color("white"), 6, 8);
+                                       ci::Color("orange"), 6, 8);
   Particle white_particle_ = Particle(glm::vec2(550, 550), glm::vec2(-1, -1.5),
-                                      ci::Color("orange"), 9, 11);
+                                      ci::Color("white"), 9, 11);
 };
 
 }  // namespace idealgas

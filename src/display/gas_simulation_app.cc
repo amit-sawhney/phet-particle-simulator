@@ -15,14 +15,14 @@ IdealGasApp::IdealGasApp() {
                          kDefaultParticleMass, kDefaultParticleColor);
 
   blue_histogram_ =
-      Histogram(initial_particles, glm::vec2(650, 100), glm::vec2(850, 300), 1,
+      Histogram(initial_particles, glm::vec2(700, 100), glm::vec2(900, 300), 1,
                 blue_particle_.GetColor(), 4);
   orange_histogram_ =
-      Histogram(initial_particles, glm::vec2(650, 400), glm::vec2(850, 600), 1,
+      Histogram(initial_particles, glm::vec2(700, 400), glm::vec2(900, 600), 1,
                 orange_particle_.GetColor(), 4);
   white_histogram_ =
-      Histogram(initial_particles, glm::vec2(900, 100), glm::vec2(1100, 300), 1,
-                white_particle_.GetColor(), 4);
+      Histogram(initial_particles, glm::vec2(1000, 100), glm::vec2(1200, 300),
+                1, white_particle_.GetColor(), 4);
 
   container_ = container;
   ci::app::setWindowSize(kWindowWidth, kWindowHeight);
@@ -56,14 +56,14 @@ void IdealGasApp::update() {
   container_.AdvanceOneFrame();
 }
 
-void IdealGasApp::keyDown(ci::app::KeyEvent event) {
-  Particle* blue_particle = new Particle(glm::vec2(550, 550), glm::vec2(-3, -1),
-                                         ci::Color("blue"), 3, 5);
-  Particle* orange_particle = new Particle(
-      glm::vec2(550, 550), glm::vec2(-2, -2), ci::Color("orange"), 6, 8);
-  Particle* white_particle = new Particle(
-      glm::vec2(550, 550), glm::vec2(-1, -1.5), ci::Color("white"), 9, 11);
+Particle* IdealGasApp::GenerateParticle(const glm::vec2& position,
+                                        const glm::vec2& velocity,
+                                        const ci::Color& color, float radius,
+                                        float mass) {
+  return new Particle(position, velocity, color, radius, mass);
+}
 
+void IdealGasApp::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
     case ci::app::KeyEvent::KEY_UP:
       container_.ModifyParticlesSpeed(kDeltaVelocity, true);
@@ -72,13 +72,16 @@ void IdealGasApp::keyDown(ci::app::KeyEvent event) {
       container_.ModifyParticlesSpeed(kDeltaVelocity, false);
       break;
     case ci::app::KeyEvent::KEY_b:
-      container_.AddParticleToContainer(blue_particle);
+      container_.AddParticleToContainer(GenerateParticle(
+          glm::vec2(550, 550), glm::vec2(-3, -1), ci::Color("blue"), 3, 5));
       break;
     case ci::app::KeyEvent::KEY_o:
-      container_.AddParticleToContainer(orange_particle);
+      container_.AddParticleToContainer(GenerateParticle(
+          glm::vec2(550, 550), glm::vec2(-2, -2), ci::Color("orange"), 6, 8));
       break;
     case ci::app::KeyEvent::KEY_w:
-      container_.AddParticleToContainer(white_particle);
+      container_.AddParticleToContainer(GenerateParticle(
+          glm::vec2(550, 550), glm::vec2(-1, -1.5), ci::Color("white"), 9, 11));
       break;
   }
 }
