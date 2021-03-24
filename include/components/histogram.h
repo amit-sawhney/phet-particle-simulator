@@ -43,6 +43,7 @@ class Histogram {
   std::vector<size_t> UpdateParticleBins(
       const std::vector<Particle*>& particles);
 
+ private:
   /**
    * Calculates the number of bins that will be displayed based on bin width
    * @param particles the particles to be placed into the histogram
@@ -50,7 +51,6 @@ class Histogram {
    */
   size_t CalculateNumOfBins(const std::vector<Particle*>& particles);
 
- private:
   /**
    * Determines the fastest particle in the incoming set of particles
    * @param particles the incoming set of particles
